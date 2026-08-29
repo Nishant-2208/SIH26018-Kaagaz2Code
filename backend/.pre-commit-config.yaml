@@ -1,0 +1,20 @@
+# .pre-commit-config.yaml
+# Run manually: pre-commit run --all-files
+# Install hooks:  pre-commit install
+#
+# Hooks run in order: ruff (lint + auto-fix) → black (format).
+# Neither hook touches test logic or endpoint contracts.
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.7
+    hooks:
+      - id: ruff
+        args: [--fix]          # auto-fix safe lint issues
+      - id: ruff-format        # ruff's own formatter (optional; we use black below)
+
+  - repo: https://github.com/psf/black
+    rev: 24.8.0
+    hooks:
+      - id: black
+        language_version: python3

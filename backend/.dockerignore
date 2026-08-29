@@ -1,0 +1,32 @@
+# .dockerignore — keep the Docker build context lean.
+# None of these are needed to run the app in a container.
+
+# Python virtual environment (largest exclusion — can be 100s of MB)
+venv/
+.venv/
+
+# Git history
+.git/
+.gitignore
+
+# Compiled bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment secrets — injected at runtime via docker-compose / K8s secrets
+.env
+
+# Dev/test artefacts — not needed in the image
+tests/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Pre-commit config — CI-only tooling
+.pre-commit-config.yaml
+
+# Editor/IDE dirs
+.vscode/
+.idea/
