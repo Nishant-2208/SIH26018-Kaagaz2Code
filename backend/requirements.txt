@@ -1,20 +1,74 @@
-fastapi>=0.115,<1.0
-uvicorn[standard]>=0.30
-sqlalchemy>=2.0,<3.0
-alembic>=1.13
-psycopg2-binary>=2.9
-pydantic>=2.7
-pydantic-settings>=2.3
-email-validator>=2.1      # required by pydantic's EmailStr
-python-jose[cryptography]>=3.3
-passlib[bcrypt]>=1.7
-bcrypt==4.0.1           # pinned — passlib is incompatible with bcrypt>=4.1
-python-multipart>=0.0.9
+# =============================================================================
+# Kaagaz2Code Backend — Python Dependencies
+# SIH26018 · Smart Land Record Digitization Platform
+#
+# Install:
+#   python -m venv venv
+#   .\venv\Scripts\activate        # Windows
+#   source venv/bin/activate       # macOS / Linux
+#   pip install -r requirements.txt
+#
+# For exact pinned versions (reproducible installs), use:
+#   pip install -r requirements-lock.txt
+# =============================================================================
 
-# --- Dev / test dependencies ---
-pytest>=8.0
-pytest-asyncio>=0.23
-httpx>=0.27
-ruff>=0.5
-black>=24.0
-pre-commit>=3.7
+# --- Web Framework & Server ---
+fastapi>=0.115,<1.0                 # FastAPI async web framework
+uvicorn[standard]>=0.30             # ASGI server with websockets + httptools
+
+# --- Database & Migrations ---
+sqlalchemy>=2.0,<3.0                # ORM (SQLAlchemy 2.0 style)
+alembic>=1.13                       # Database schema migrations
+psycopg2-binary>=2.9                # PostgreSQL driver (binary for easy install)
+
+# --- Validation & Settings ---
+pydantic>=2.7                       # Request/response validation (v2)
+pydantic-settings>=2.3              # Environment variable loading
+email-validator>=2.1                # Required by pydantic's EmailStr type
+python-dotenv>=1.0                  # .env file loading
+
+# --- Authentication & Security ---
+python-jose[cryptography]>=3.3      # JWT token creation and verification
+passlib[bcrypt]>=1.7                # Password hashing (bcrypt scheme)
+bcrypt==4.0.1                       # Pinned — passlib is incompatible with bcrypt>=4.1
+
+# --- File Uploads & Object Storage (MinIO / S3) ---
+python-multipart>=0.0.9             # multipart/form-data for document uploads
+aiofiles>=23.2                      # Async file I/O operations
+boto3>=1.34                         # S3 / MinIO client SDK for document storage
+botocore>=1.34                      # Low-level S3/AWS client library
+
+# --- OCR & Document Processing ---
+pillow>=10.0                        # Image processing and manipulation
+pytesseract>=0.3.10                 # Tesseract OCR engine wrapper
+pypdf>=4.0                          # PDF parsing, inspection, and manipulation
+pdf2image>=1.17                     # Multi-page PDF to image rendering for OCR
+opencv-python-headless>=4.9         # Image preprocessing (deskewing, binarization, noise filtering)
+
+# --- AI & LLM Extraction Providers ---
+anthropic>=0.25                     # Claude API for structured land record extraction
+google-genai>=0.1                   # Gemini API for OCR enhancement & multilingual normalization
+openai>=1.20                        # OpenAI API provider support
+
+# --- Networking & HTTP Clients ---
+httpx>=0.27                         # Async HTTP client for external integrations & API tests
+requests>=2.31                      # Standard HTTP client
+
+# --- Spatial & Geometry (Parcels & Maps) ---
+shapely>=2.0                        # Geometric calculations for land parcel boundaries
+
+# =============================================================================
+# Dev, Testing & Quality Assurance
+# =============================================================================
+
+# --- Testing ---
+pytest>=8.0                         # Test runner
+pytest-asyncio>=0.23                # Async test support for FastAPI endpoints
+pytest-cov>=4.1                     # Test coverage reporting
+
+# --- Linting & Formatting ---
+ruff>=0.5                           # Fast Python linter & formatter
+black>=24.0                         # Code formatter
+
+# --- Git Hooks ---
+pre-commit>=3.7                     # Runs linters/formatters before commits

@@ -1,4 +1,4 @@
-﻿# Kaagaz2Code — Tech Stack Documentation
+# Kaagaz2Code — Tech Stack Documentation
 
 > **Project**: SIH26018 — Kaagaz2Code
 > **Type**: Document Digitization / Handwritten-to-Code Conversion Platform
@@ -34,26 +34,35 @@ Kaagaz2Code is a document digitization platform that converts scanned/handwritte
 
 ## Backend
 
-| Category      | Technology                     | Version        |
-|---------------|--------------------------------|----------------|
-| Framework     | FastAPI                        | >=0.115, <1.0  |
-| Language      | Python                         | 3.x            |
-| ASGI Server   | Uvicorn (standard extras)      | >=0.30         |
-| ORM           | SQLAlchemy                     | >=2.0, <3.0    |
-| Migrations    | Alembic                        | >=1.13         |
-| DB Driver     | psycopg2-binary                | >=2.9          |
-| Validation    | Pydantic v2                    | >=2.7          |
-| Settings      | pydantic-settings              | >=2.3          |
-| Auth (JWT)    | python-jose[cryptography]      | >=3.3          |
-| Password Hash | passlib[bcrypt] + bcrypt       | >=1.7 / ==4.0.1|
-| File Uploads  | python-multipart               | >=0.0.9        |
+| Category        | Technology                     | Version        |
+|-----------------|--------------------------------|----------------|
+| Framework       | FastAPI                        | >=0.115, <1.0  |
+| Language        | Python                         | 3.x            |
+| ASGI Server     | Uvicorn (standard extras)      | >=0.30         |
+| ORM             | SQLAlchemy                     | >=2.0, <3.0    |
+| Migrations      | Alembic                        | >=1.13         |
+| DB Driver       | psycopg2-binary                | >=2.9          |
+| Validation      | Pydantic v2                    | >=2.7          |
+| Settings        | pydantic-settings              | >=2.3          |
+| Auth (JWT)      | python-jose[cryptography]      | >=3.3          |
+| Password Hash   | passlib[bcrypt] + bcrypt       | >=1.7 / ==4.0.1|
+| File Uploads    | python-multipart + aiofiles    | >=0.0.9 / >=23.2|
+| Object Storage  | boto3 + botocore               | >=1.34         |
+| OCR & Imaging   | pytesseract, Pillow, pdf2image, opencv | >=0.3.10, >=10.0, >=1.17, >=4.9 |
+| PDF Processing  | pypdf                          | >=4.0          |
+| AI Providers    | anthropic, google-genai, openai| >=0.25, >=0.1, >=1.20 |
+| Spatial / GIS   | shapely                        | >=2.0          |
 
 ### Key Notes
 - **FastAPI** + **Pydantic v2** for type-safe request/response handling.
 - **SQLAlchemy 2.0** ORM with **Alembic** for schema migrations.
 - JWT-based auth via `python-jose`; passwords hashed with `passlib + bcrypt`.
 - `bcrypt==4.0.1` pinned — passlib is incompatible with bcrypt >= 4.1.
-- `python-multipart` enables file/form uploads for document ingestion.
+- `python-multipart` + `aiofiles` enables file/form uploads for document ingestion.
+- `boto3` handles MinIO/S3 object storage for raw document and derivative storage.
+- `pytesseract` + `opencv-python-headless` + `pdf2image` power the document pre-processing and OCR pipeline.
+- `anthropic` / `google-genai` / `openai` provide pluggable LLM extraction and multilingual normalization.
+- `shapely` handles land parcel geometric validation and coordinate operations.
 
 ---
 
